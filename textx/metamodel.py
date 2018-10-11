@@ -124,7 +124,8 @@ class TextXMetaModel(DebugPrinter):
         use_regexp_group (bool): if True, regexp terminals are
             replaced with the group value, if they have exactly one group.
         _tx_model_file_access: a helper object to access file contents for
-            models
+            models (can be set via an optional constructor parameter
+            "model_file_access", e.g., "model_file_access=ModelFileAccess()").
     """
 
     def __init__(self, file_name=None, classes=None, builtins=None,
@@ -134,6 +135,8 @@ class TextXMetaModel(DebugPrinter):
         # evaluate optional parameter "global_repository"
         global_repository = kwargs.pop("global_repository", False)
         self.referenced_metamodels = kwargs.pop("referenced_metamodels", [])
+        self._tx_model_file_access = kwargs.pop("model_file_access",
+                                                ModelFileAccess())
         if global_repository:
             from textx.scoping import GlobalModelRepository
             if isinstance(global_repository, GlobalModelRepository):
@@ -143,7 +146,6 @@ class TextXMetaModel(DebugPrinter):
 
         super(TextXMetaModel, self).__init__(**kwargs)
 
-        self._tx_model_file_access = ModelFileAccess()
         self.file_name = file_name
         self.rootcls = None
 
