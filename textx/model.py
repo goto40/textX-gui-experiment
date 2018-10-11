@@ -251,8 +251,8 @@ def get_model_parser(top_rule, comments_model, **kwargs):
             If file_name is given file will be parsed before model
             construction.
             """
-            with codecs.open(file_name, 'r', encoding) as f:
-                model_str = f.read()
+            model_str = self.metamodel._tx_model_file_access.\
+                get_text_from_file(file_name, encoding)
 
             model = self.get_model_from_str(
                 model_str, file_name=file_name, debug=debug,

@@ -20,6 +20,26 @@ from textx.const import MULT_ONE, MULT_ZEROORMORE, MULT_ONEORMORE, \
 
 __all__ = ['metamodel_from_str', 'metamodel_from_file']
 
+class ModelFileAccess:
+    """
+    Responsible to access file contents (for model parsing).
+    Provides means to provide file contents from alternative 
+    sources (string in memory) in order to allow an editor to make
+    changes in memory and to parse this data - as it was on disk.
+    """
+    def __init__(self):
+        pass
+
+    def get_text_from_file(self, file_name, encoding):
+        """
+        load a text from a file.
+        Args:
+            file: the filename
+        Returns: the file content.
+        """
+        with codecs.open(file_name, 'r', encoding) as f:
+            return f.read()
+
 
 class MetaAttr(object):
     """
@@ -103,6 +123,8 @@ class TextXMetaModel(DebugPrinter):
             "global_repository=GlobalModelRepository()".
         use_regexp_group (bool): if True, regexp terminals are
             replaced with the group value, if they have exactly one group.
+        _tx_model_file_access: a helper object to access file contents for
+            models
     """
 
     def __init__(self, file_name=None, classes=None, builtins=None,
@@ -121,6 +143,7 @@ class TextXMetaModel(DebugPrinter):
 
         super(TextXMetaModel, self).__init__(**kwargs)
 
+        self._tx_model_file_access = ModelFileAccess()
         self.file_name = file_name
         self.rootcls = None
 
