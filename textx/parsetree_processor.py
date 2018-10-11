@@ -29,7 +29,7 @@ def _is_reference(node, parent_list):
     return False
 
 
-def default_classification(node, parent_list):
+def default_classifier(node, parent_list):
     if _is_reference(node, parent_list):
         return REFERENCE
     elif isinstance(node, Terminal):
@@ -44,7 +44,7 @@ def default_classification(node, parent_list):
         return None
 
 
-def classified_parsetree_nodes(model, classifier=default_classification):
+def classified_parsetree_nodes(model, classifier=default_classifier):
     for x in _classified_parsetree_nodes(model._tx_parser.parse_tree[0],
         classifier):
         yield x
