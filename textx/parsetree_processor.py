@@ -45,8 +45,9 @@ def default_classification(node, parent_list):
 
 
 def classified_parsetree_nodes(model, classifier=default_classification):
-    yield from _classified_parsetree_nodes(model._tx_parser.parse_tree[0],
-        classifier)
+    for x in _classified_parsetree_nodes(model._tx_parser.parse_tree[0],
+        classifier):
+        yield x
 
 
 def _classified_parsetree_nodes(parsetree_node, classifier, parent_list=None):
@@ -72,8 +73,9 @@ def _classified_parsetree_nodes(parsetree_node, classifier, parent_list=None):
         if classifier_result == None:
             assert not isinstance(node, Terminal), \
                 "unexpected, unclassified terminal"
-            yield from _classified_parsetree_nodes(node, classifier,
-                                                   parent_list + [node])
+            for x in _classified_parsetree_nodes(node, classifier,
+                                                  parent_list + [node]):
+                yield x
         else:
             if (node.position_end-node.position)>0:
                 yield classifier_result, node, parent_list
