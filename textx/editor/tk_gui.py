@@ -78,14 +78,14 @@ class Editor:
             self.T.tag_add("error",
                       '{}.{}'.format(e.line,e.col-1),
                       '{}'.format(tk.END))
-            print("modified, parse/validation xtext error: {}".format(str(e)))
+            #print("modified, parse/validation xtext error: {}".format(str(e)))
 
         except Exception as e:
             self.on_error(str(e))
             self.T.tag_add("error",
                       '{}.{}'.format(0,0),
                       '{}'.format(tk.END))
-            print("modified, parse/validation error: {}".format(str(e)))
+            #print("modified, parse/validation error: {}".format(str(e)))
 
 
     def analyze_and_set_tags(self):
