@@ -8,7 +8,7 @@ KEYWORD = 'KEYWORD'
 NAME_VALUE = 'NAME_VALUE'
 VALUE = 'VALUE'
 IMPORTURI_VALUE = 'IMPORTURI_VALUE'
-#COMMENT = 'COMMENT'
+COMMENT = 'COMMENT'
 
 def _is_reference(node, parent_list):
     """
@@ -65,8 +65,14 @@ def default_classifier(node, parent_list):
 
 
 def classified_parsetree_nodes(model, classifier=default_classifier):
+    comments = model._tx_parser.comments
+    next_comment_index = 0
     for x in _classified_parsetree_nodes(model._tx_parser.parse_tree[0],
         classifier):
+        while next_comment_index<len(comments) and \
+                comments[next_comment_index].position<x[1].position:
+            yield COMMENT, comments[next_comment_index], []
+            next_comment_index+=1
         yield x
 
 

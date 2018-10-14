@@ -11,15 +11,17 @@ Package: "package" "{" packages*=Package refs*=Ref mrefs*=MRef "}";
 Thing: "thing" name=ID ";";
 Ref: "ref" ref=[Thing] ";";
 MRef: "mref" refs+=[Thing] ";";
+Comment: /\/\/.*/;
 """
 
 
 model_str = """thing t1;
 thing t2;
 thing t3;
+// comment
 package {
  package {
-  ref t2;
+  ref t2; // comment
  }
  ref t1;
  mref t1 t2 t3;
@@ -34,6 +36,7 @@ def test_classified_parsetree_nodes_denstity_test():
     current_position = 0
     refcount = 0
     for c,n,pl in classified_parsetree_nodes(model):
+        print(c)
         if c==REFERENCE: refcount += 1
         assert n.position >= current_position, "start pos must follow last pos"
         if n.position > current_position:

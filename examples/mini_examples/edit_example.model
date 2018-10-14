@@ -1,3 +1,6 @@
+// Example for the editor
+// edit with: python edit_example.py edit_example.model
+
 ASPECT NetworkTraffic
 ASPECT FileAccess
 SCENARIO S001 BEGIN
