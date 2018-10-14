@@ -8,7 +8,7 @@ KEYWORD = 'KEYWORD'
 NAME_VALUE = 'NAME_VALUE'
 VALUE = 'VALUE'
 IMPORTURI_VALUE = 'IMPORTURI_VALUE'
-COMMENT = 'COMMENT'
+#COMMENT = 'COMMENT'
 
 def _is_reference(node, parent_list):
     """
