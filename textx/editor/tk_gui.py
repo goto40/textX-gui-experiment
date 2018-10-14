@@ -102,6 +102,8 @@ class Editor:
         with codecs.open(model_filename, 'r', encoding='utf-8') as f:
             model_str = f.read()
         self.mm._tx_model_file_access.enable_auto_buffer(True)
+        # TODO: set the flag for all meta models involved in this editor
+        # (-> MetaModelProvider may yield all these objects).
         self.model = self.mm.model_from_file(model_filename)
         self.T.insert(tk.END, self.mm._tx_model_file_access.
                       get_buffered_text_from_model(self.model))
