@@ -46,7 +46,7 @@ setup(
     url='https://github.com/igordejanovic/textX',
     download_url='https://github.com/igordejanovic/textX/archive/v%s.tar.gz'
         % VERSION,
-    packages=["textx", "textx.commands", "textx.scoping"],
+    packages=["textx", "textx.commands", "textx.scoping","textx.editor"],
     install_requires=["Arpeggio>=1.9.0"],
     tests_require=[
         'pytest',
