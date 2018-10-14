@@ -1,4 +1,4 @@
-# textX simple editor support
+# TextX simple editor support
 
 ## Strategy
 
