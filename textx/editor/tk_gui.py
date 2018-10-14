@@ -117,8 +117,8 @@ class Editor:
                      font=(self.fontname, 12, 'normal') )
         self.T.tag_config(pp.IMPORTURI_VALUE, foreground='red',
                      font=(self.fontname, 12, 'normal') )
-        self.T.tag_config(pp.COMMENT, foreground='gray',
-                     font=(self.fontname, 12, 'normal') )
+        #self.T.tag_config(pp.COMMENT, foreground='gray',
+        #             font=(self.fontname, 12, 'normal') )
 
     def edit(self, model_filename):
         with codecs.open(model_filename, 'r', encoding='utf-8') as f:
