@@ -65,11 +65,11 @@ class Editor:
         self.mm._tx_model_file_access.set_text_for_file(
             self.model._tx_filename, self.T.get("1.0",tk.END))
         try:
-            self.model = self.mm.model_from_file(self.model._tx_filename)
             print("modified!")
+            self.model = self.mm.model_from_file(self.model._tx_filename)
             self.on_no_error()
             self.analyze_and_set_tags()
-            print("modifications updated...")
+            print("... modifications updated.")
         except TextXError as e:
             self.on_error(e.message)
             self.T.tag_delete("error")
