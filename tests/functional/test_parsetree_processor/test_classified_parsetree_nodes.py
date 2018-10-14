@@ -26,12 +26,6 @@ package {
 }
 """
 
-# def test_formatter_text():
-#     metamodel = metamodel_from_str(grammar)
-#     model = metamodel.model_from_str(model_str)
-#     text = formatter_txt(model)
-#     assert model_str == text # intendation matters!
-
 def test_classified_parsetree_nodes_denstity_test():
 
     metamodel = metamodel_from_str(grammar)
