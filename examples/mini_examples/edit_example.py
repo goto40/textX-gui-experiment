@@ -1,4 +1,6 @@
 from textx import metamodel_from_str
+from textx.exceptions import TextXSemanticError
+from textx.scoping.tools import get_location
 from textx.scoping.providers import RelativeName, FQN
 import textx.editor.tk_gui as gui
 import sys
@@ -36,12 +38,12 @@ def check_testcase(testcase):
     """
     for need in testcase.needs:
         if need not in testcase.config.haves:
-            raise Exception("{}: {} not found in {}.{}".format(
+            raise TextXSemanticError("{}: {} not found in {}.{}".format(
                     testcase.name,
                     need.name,
                     testcase.scenario.name,
                     testcase.config.name
-                    ))
+                    ), **get_location(testcase))
 
 meta_model.register_obj_processors({
         'Testcase': check_testcase

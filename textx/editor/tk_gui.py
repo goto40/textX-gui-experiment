@@ -55,24 +55,36 @@ class Editor:
         self.T.pack(fill=tk.BOTH, expand=1)
         self.T.bind("<<TextModified>>", self.onModification)
 
+    def on_error(self, errortext):
+        self.root.title(errortext)
+
+    def on_no_error(self):
+        self.root.title("{}: no error".format(self.model._tx_filename))
+
     def onModification(self, event=None):
         self.mm._tx_model_file_access.set_text_for_file(
             self.model._tx_filename, self.T.get("1.0",tk.END))
         try:
             self.model = self.mm.model_from_file(self.model._tx_filename)
             print("modified!")
+            self.on_no_error()
             self.analyze_and_set_tags()
             print("modifications updated...")
         except TextXError as e:
+            self.on_error(e.message)
             self.T.tag_delete("error")
             self.T.tag_config("error", foreground='red',
                               font=(self.fontname, 12, 'normal'))
             self.T.tag_add("error",
                       '{}.{}'.format(e.line,e.col-1),
-                      '{}.{}'.format(e.line+1,0))
+                      '{}'.format(tk.END))
             print("modified, parse/validation xtext error: {}".format(str(e)))
 
         except Exception as e:
+            self.on_error(str(e))
+            self.T.tag_add("error",
+                      '{}.{}'.format(0,0),
+                      '{}'.format(tk.END))
             print("modified, parse/validation error: {}".format(str(e)))
 
 
