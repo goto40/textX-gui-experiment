@@ -115,11 +115,9 @@ class Editor:
                      font=(self.fontname, 12, 'normal') )
         self.T.tag_config(pp.REFERENCE, foreground='blue',
                      font=(self.fontname, 12, 'bold'))
-        self.T.tag_config(pp.NAME_VALUE, foreground='magenta',
-                     font=(self.fontname, 12, 'normal') )
-        self.T.tag_config(pp.IMPORTURI_VALUE, foreground='red',
-                     font=(self.fontname, 12, 'normal') )
-        self.T.tag_config(pp.IMPORTURI_VALUE, foreground='red',
+        self.T.tag_config(pp.NAME_VALUE, foreground='firebrick',
+                     font=(self.fontname, 12, 'bold') )
+        self.T.tag_config(pp.IMPORTURI_VALUE, foreground='firebrick',
                      font=(self.fontname, 12, 'normal') )
         #self.T.tag_config(pp.COMMENT, foreground='gray',
         #             font=(self.fontname, 12, 'normal') )
