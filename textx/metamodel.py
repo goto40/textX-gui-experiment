@@ -28,17 +28,40 @@ class ModelFileAccess:
     changes in memory and to parse this data - as it was on disk.
     """
     def __init__(self):
-        pass
+        self.buffered_text = {}
+        self.auto_buffer = False
+
+    def enable_auto_buffer(self, flag=True):
+        """
+        enables that all loaded model texts are buffered
+        Args:
+            flag (bool): True (on, default) or False
+        """
+        self.auto_buffer = flag
 
     def get_text_from_file(self, file_name, encoding):
         """
         load a text from a file.
         Args:
-            file: the filename
+            file (str): the filename (typically use model._tx_filename)
         Returns: the file content.
         """
+        if file_name in self.buffered_text:
+            return self.buffered_text[file_name]
         with codecs.open(file_name, 'r', encoding) as f:
-            return f.read()
+            text = f.read()
+            if self.auto_buffer:
+                self.set_text_for_file(file_name, text)
+            return text
+
+    def get_buffered_text_from_model(self, model):
+        if model._tx_filename in self.buffered_text:
+            return self.buffered_text[model._tx_filename]
+        else:
+            raise Exception("{} not buffered.".format(model._tx_file_name))
+
+    def set_text_for_file(self, file_name, text):
+        self.buffered_text.update({file_name: text})
 
 
 class MetaAttr(object):
