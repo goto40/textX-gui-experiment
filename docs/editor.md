@@ -29,6 +29,10 @@ errors, the format information is untouched, only errors are overlaid.
  * Open Point: check how to link the references to the real objects they 
    point to (in order to allow "go to definition").
 
+--> textx-tools probably provide suitable modules to overcome some or all of
+the problems above...
+
+
 ## Usage
 
 Example: textX/examples/mini_examples/edit_example.py
