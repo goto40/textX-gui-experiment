@@ -3,7 +3,7 @@ Model query and navigation API.
 """
 from __future__ import unicode_literals
 from textx import metamodel_from_str
-from textx.parsetree_processor import classified_parsetree_nodes, REFERENCE
+from textx.editor.parsetree_processor import classified_parsetree_nodes, REFERENCE
 
 grammar = """
 Model: things*=Thing packages*=Package;

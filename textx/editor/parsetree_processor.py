@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 from arpeggio import Terminal
 
+# Relevant convenience classes for parse tree processing.
+# This classification can be extended.
 REFERENCE = 'REFERENCE'
 KEYWORD = 'KEYWORD'
 NAME_VALUE = 'NAME_VALUE'
@@ -9,6 +11,14 @@ IMPORTURI_VALUE = 'IMPORTURI_VALUE'
 COMMENT = 'COMMENT'
 
 def _is_reference(node, parent_list):
+    """
+    Does the parsetree node represent a reference.
+    Args:
+        node: the node to be checked
+        parent_list: the parents of the nodes (node[-1] is the
+        direct parent.
+    Returns: True or False
+    """
     # detect "references":
     # parent.rule/_tx_class/_tx_attrs/<name>/cont==False & ref=True and mult="1"
     # node: rule/_attr_name=<name>
@@ -30,12 +40,22 @@ def _is_reference(node, parent_list):
 
 
 def default_classifier(node, parent_list):
+    """
+    Classifies a parsetree node.
+    Args:
+        node: the node to be checked
+        parent_list: the parents of the nodes (node[-1] is the
+        direct parent.
+    Returns: The classification result (e.g. REFERENCE, ...).
+    """
     if _is_reference(node, parent_list):
         return REFERENCE
     elif isinstance(node, Terminal):
         if parent_list[-1].name.startswith('__asgn'):
             if parent_list[-1].rule._attr_name == 'name':
                 return NAME_VALUE
+            elif parent_list[-1].rule._attr_name == 'importURI':
+                return IMPORTURI_VALUE
             else:
                 return VALUE
         else:
