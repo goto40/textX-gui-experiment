@@ -13,6 +13,12 @@ errors, the format information is untouched, only errors are overlaid.
  * metamodel._tx_model_file_access allows to access model sources after
    model parsing. It also allows to hook into any model file access in order
    to provide in-memory model text instead of file data.
+ * textx.editor.parsetree_processor allows to iterate over the parsed model
+   text. I also provides a convenience classification of text elements
+   (e.g. REFERENCE, KEYWORD, COMMENT, ...) in order to ease editor 
+   activities, such syntax highlighting.
+ * textx.editor.tk_gui a simple tk editor component.
+ 
 
 ## Usage
 
