@@ -3,8 +3,7 @@ Model query and navigation API.
 """
 from __future__ import unicode_literals
 from textx import metamodel_from_str
-from textx.parsetree_processor import classified_parsetree_nodes, \
-    formatter_txt, REFERENCE
+from textx.parsetree_processor import classified_parsetree_nodes, REFERENCE
 
 grammar = """
 Model: things*=Thing packages*=Package;
@@ -27,12 +26,11 @@ package {
 }
 """
 
-def test_formatter_text():
-    metamodel = metamodel_from_str(grammar)
-    model = metamodel.model_from_str(model_str)
-    text = formatter_txt(model)
-    assert model_str == text # intendation matters!
-
+# def test_formatter_text():
+#     metamodel = metamodel_from_str(grammar)
+#     model = metamodel.model_from_str(model_str)
+#     text = formatter_txt(model)
+#     assert model_str == text # intendation matters!
 
 def test_classified_parsetree_nodes_denstity_test():
 

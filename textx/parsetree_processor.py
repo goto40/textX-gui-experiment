@@ -81,57 +81,57 @@ def _classified_parsetree_nodes(parsetree_node, classifier, parent_list=None):
                 yield classifier_result, node, parent_list
 
 
-def _indent_text(indent):
-    return " "*max(0,indent)
-
-
-def formatter_txt(model,newline_before=[], newline_after=[";","}","{"],
-                  indent_inc=["{"],indent_dec=["}"],nospace_before=[";"]):
-    """
-    Formats a model with indentation.
-    Args:
-        model: the model to be rendered (formatted)
-        newline_before: insert newlines before any of these keywords
-        newline_after: insert newlines after any of these keywords
-        indent_inc: increase intend after these keywords
-        indent_dec: decrease intend after these keywords
-        nospace_before: output no space before these keyords
-
-    Returns: teh formatted text
-
-    """
-
-    class FormatterHelper:
-        def __init__(self):
-            self.indent = 0
-            self.begin_of_line = True
-
-        def __call__(self, classifier_result, n, pl):
-            spaces = " "
-            if (classifier_result == KEYWORD):
-                if n.value in nospace_before:
-                    spaces = ""
-                if n.value in indent_dec:
-                    self.indent = self.indent - 1
-            if self.begin_of_line:
-                spaces = _indent_text(self.indent)
-            text = spaces + n.value
-            self.begin_of_line = False
-            #if (classifier_result == REFERENCE):
-            #    text = spaces + ">"+n.value
-            if (classifier_result == KEYWORD):
-                if n.value in newline_before:
-                    text = "\n" + _indent_text(self.indent) + n.value
-                if n.value in newline_after:
-                    text = spaces + n.value + "\n"
-                    self.begin_of_line = True
-                if n.value in indent_inc:
-                    self.indent = self.indent + 1
-            return text
-
-    text = ""
-    formatter_helper = FormatterHelper()
-    for classifier_result,node,pl in classified_parsetree_nodes(model):
-        text += formatter_helper(classifier_result, node, pl)
-    return text
-
+# def _indent_text(indent):
+#     return " "*max(0,indent)
+#
+#
+# def formatter_txt(model,newline_before=[], newline_after=[";","}","{"],
+#                   indent_inc=["{"],indent_dec=["}"],nospace_before=[";"]):
+#     """
+#     Formats a model with indentation.
+#     Args:
+#         model: the model to be rendered (formatted)
+#         newline_before: insert newlines before any of these keywords
+#         newline_after: insert newlines after any of these keywords
+#         indent_inc: increase intend after these keywords
+#         indent_dec: decrease intend after these keywords
+#         nospace_before: output no space before these keyords
+#
+#     Returns: teh formatted text
+#
+#     """
+#
+#     class FormatterHelper:
+#         def __init__(self):
+#             self.indent = 0
+#             self.begin_of_line = True
+#
+#         def __call__(self, classifier_result, n, pl):
+#             spaces = " "
+#             if (classifier_result == KEYWORD):
+#                 if n.value in nospace_before:
+#                     spaces = ""
+#                 if n.value in indent_dec:
+#                     self.indent = self.indent - 1
+#             if self.begin_of_line:
+#                 spaces = _indent_text(self.indent)
+#             text = spaces + n.value
+#             self.begin_of_line = False
+#             #if (classifier_result == REFERENCE):
+#             #    text = spaces + ">"+n.value
+#             if (classifier_result == KEYWORD):
+#                 if n.value in newline_before:
+#                     text = "\n" + _indent_text(self.indent) + n.value
+#                 if n.value in newline_after:
+#                     text = spaces + n.value + "\n"
+#                     self.begin_of_line = True
+#                 if n.value in indent_inc:
+#                     self.indent = self.indent + 1
+#             return text
+#
+#     text = ""
+#     formatter_helper = FormatterHelper()
+#     for classifier_result,node,pl in classified_parsetree_nodes(model):
+#         text += formatter_helper(classifier_result, node, pl)
+#     return text
+#
