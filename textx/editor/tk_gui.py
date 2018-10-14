@@ -3,7 +3,11 @@ from textx.scoping import MetaModelProvider
 import textx.editor.parsetree_processor as pp
 from textx.exceptions import TextXError
 import codecs
-import tkinter as tk
+import six
+if six.PY2:
+    import Tkinter as tk
+else:
+    import tkinter as tk
 
 
 def edit(model_filename, meta_model=None):
