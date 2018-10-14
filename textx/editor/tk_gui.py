@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from textx.scoping import MetaModelProvider
 import textx.editor.parsetree_processor as pp
+from textx.exceptions import TextXError
 import codecs
 import tkinter as tk
 
@@ -62,6 +63,15 @@ class Editor:
             print("modified!")
             self.analyze_and_set_tags()
             print("modifications updated...")
+        except TextXError as e:
+            self.T.tag_delete("error")
+            self.T.tag_config("error", foreground='red',
+                              font=(self.fontname, 12, 'normal'))
+            self.T.tag_add("error",
+                      '{}.{}'.format(e.line,e.col-1),
+                      '{}.{}'.format(e.line+1,0))
+            print("modified, parse/validation xtext error: {}".format(str(e)))
+
         except Exception as e:
             print("modified, parse/validation error: {}".format(str(e)))
 
