@@ -18,7 +18,16 @@ errors, the format information is untouched, only errors are overlaid.
    (e.g. REFERENCE, KEYWORD, COMMENT, ...) in order to ease editor 
    activities, such syntax highlighting.
  * textx.editor.tk_gui a simple tk editor component.
- 
+
+
+## Open Points, NOGOs
+
+ * NOGO: Syntax highlighting works only, if the complete model is readable,
+   While typing large model elements, no sytax highlighting updates occur...
+     * Can we have "half-parsed-models"?
+ * NOGO: We need something like: "complete currently expected terminal"...
+ * Open Point: check how to link the references to the real objects they 
+   point to (in order to allow "go to definition").
 
 ## Usage
 
